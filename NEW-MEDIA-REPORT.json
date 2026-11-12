@@ -1,0 +1,98 @@
+[
+  {
+    "source": "DSC06335.jpg",
+    "file": "dist/assets/photos/ballroom-partnership.webp",
+    "source_bytes": 138770,
+    "bytes": 40936
+  },
+  {
+    "source": "DSC06345.jpg",
+    "file": "dist/assets/photos/ballroom-demonstration.webp",
+    "source_bytes": 177240,
+    "bytes": 67604
+  },
+  {
+    "source": "DSC06359.jpg",
+    "file": "dist/assets/photos/young-dancers-training.webp",
+    "source_bytes": 166200,
+    "bytes": 55370
+  },
+  {
+    "source": "DSC06369.jpg",
+    "file": "dist/assets/photos/studio-workshop.webp",
+    "source_bytes": 238604,
+    "bytes": 113296
+  },
+  {
+    "source": "DSC06438.jpg",
+    "file": "dist/assets/photos/group-floor.webp",
+    "source_bytes": 244763,
+    "bytes": 120118
+  },
+  {
+    "source": "DSC06446.jpg",
+    "file": "dist/assets/photos/latin-coaching.webp",
+    "source_bytes": 145654,
+    "bytes": 50668
+  },
+  {
+    "source": "_DSC5171.jpg",
+    "file": "dist/assets/photos/solo-expression.webp",
+    "source_bytes": 207174,
+    "bytes": 95342
+  },
+  {
+    "source": "_DSC5187.jpg",
+    "file": "dist/assets/photos/dance-practice.webp",
+    "source_bytes": 214349,
+    "bytes": 91782
+  },
+  {
+    "source": "_DSC5285.jpg",
+    "file": "dist/assets/photos/partner-training.webp",
+    "source_bytes": 173374,
+    "bytes": 61954
+  },
+  {
+    "source": "_DSC5295.jpg",
+    "file": "dist/assets/photos/latin-expression.webp",
+    "source_bytes": 148669,
+    "bytes": 53634
+  },
+  {
+    "source": "_DSC5329.jpg",
+    "file": "dist/assets/photos/shared-floor.webp",
+    "source_bytes": 215500,
+    "bytes": 103670
+  },
+  {
+    "source": "_DSC5345.jpg",
+    "file": "dist/assets/photos/future-dancers.webp",
+    "source_bytes": 170839,
+    "bytes": 60714
+  },
+  {
+    "source": "LINE DANCE.mp4",
+    "file": "dist/assets/video/line-dance.mp4",
+    "source_bytes": 22237193,
+    "bytes": 6403987
+  },
+  {
+    "source": "LINE DANCE.mp4",
+    "file": "dist/assets/video/line-dance-mobile.mp4",
+    "source_bytes": 22237193,
+    "bytes": 3223345
+  },
+  {
+    "source": "LINE DANCE.mp4",
+    "file": "dist/assets/video/line-dance-preview.mp4",
+    "source_bytes": 22237193,
+    "bytes": 780747
+  },
+  {
+    "source": "LINE DANCE.mp4",
+    "file": "dist/assets/video/line-dance-preview-mobile.mp4",
+    "source_bytes": 22237193,
+    "bytes": 349679
+  }
+]

@@ -62,6 +62,7 @@ if (filters.length) {
 
 // Load video only after an intentional click. Native dialogs provide focus trapping.
 const videos = {
+  'line-dance': { src: 'assets/video/line-dance.mp4', title: 'Line dancing at We Dance' },
   'studio-film': { src: 'assets/video/studio-film.mp4', title: 'Life at We Dance' },
   social: { src: 'assets/video/social.mp4', title: 'Find your social rhythm' },
   latin: { src: 'assets/video/latin.mp4', title: 'Latin, in motion' }
@@ -331,3 +332,21 @@ document.addEventListener('visibilitychange', () => { syncHero(); syncCards(); }
 reducedMotion.addEventListener('change', event => { heroPaused = event.matches; syncHero(); syncCards(); });
 // Dialog videos take priority over all decorative previews.
 new MutationObserver(() => { syncHero(); syncCards(); }).observe(document.body, {subtree:true, attributes:true, attributeFilter:['open']});
+
+// The Adults preview remains lazy and stops as soon as its section leaves the viewport.
+const editorialVideos = $$('.editorial-video');
+const visibleEditorial = new Set();
+function syncEditorial() {
+  editorialVideos.forEach(video => {
+    if (visibleEditorial.has(video) && !document.hidden && !reducedMotion.matches && !navigator.connection?.saveData && !document.querySelector('dialog[open]')) playInline(video);
+    else video.pause();
+  });
+}
+const editorialObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) visibleEditorial.add(entry.target); else visibleEditorial.delete(entry.target); });
+  syncEditorial();
+}, {threshold:0.25});
+editorialVideos.forEach(video => editorialObserver.observe(video));
+document.addEventListener('visibilitychange', syncEditorial);
+reducedMotion.addEventListener('change', syncEditorial);
+new MutationObserver(syncEditorial).observe(document.body, {subtree:true, attributes:true, attributeFilter:['open']});

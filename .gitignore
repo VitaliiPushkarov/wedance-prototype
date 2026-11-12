@@ -5,3 +5,6 @@ dist/assets/*.mp4
 dist/assets/poster_preload_video_*.png
 node_modules/
 __pycache__/
+# Keep new camera JPEGs local; publish the optimized WebP copies.
+dist/assets/DSC*.jpg
+dist/assets/_DSC*.jpg

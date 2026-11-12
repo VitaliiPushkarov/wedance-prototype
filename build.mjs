@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { applyStudioMedia } from './media-layout.mjs';
 const root = fileURLToPath(new URL('./', import.meta.url));
 const read = name => readFile(`${root}src/${name}.html`, 'utf8');
 const arrow = '<svg><use href="#arrow"/></svg>';
@@ -45,6 +46,7 @@ for (const [slug,body] of Object.entries(pages)) {
   // The compact team preview becomes expanded profiles on the dedicated page.
   if(slug==='instructors') content=content.replace('<section class="section instructors"','<section class="section instructors full-profiles"').replace(/<div class="section-heading reveal">.*?<\/div><p>Behind every confident step,.*?<\/p><\/div>/s,'').replace(/<a class="text-link team-link".*?<\/a>/s,'');
   if(data[slug]) content=content.replace(`<option value="${slug}">`,`<option value="${slug}" selected>`).replace(' disabled selected>Choose',' disabled>Choose');
+  content = applyStudioMedia(content, slug);
   let head=await read('head');
   const title=slug==='index-hero-video'?'Find your rhythm — Video hero':slug==='index'?'Find your rhythm':nav.find(([s])=>s===slug)?.[1]||slug;
   head=head.replace(/<title>.*?<\/title>/,`<title>We Dance Studio — ${title}</title>`).replace(/content="A local design concept[^"]*"/,`content="We Dance Studio in Newtown, PA. ${slug==='index'?'Ballroom, Latin, social and wedding dance lessons.':title+'. Explore the experience and find your next step.'}"`);
