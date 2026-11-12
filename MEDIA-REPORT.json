@@ -1,0 +1,62 @@
+[
+  {
+    "file": "dist/assets/video/home_banner_video_1.mp4",
+    "source_bytes": 6560522,
+    "bytes": 740989
+  },
+  {
+    "file": "dist/assets/video/home_banner_video_1-mobile.mp4",
+    "source_bytes": 6560522,
+    "bytes": 200106
+  },
+  {
+    "file": "dist/assets/video/home_banner_video_vert.mp4",
+    "source_bytes": 856501,
+    "bytes": 115430
+  },
+  {
+    "file": "dist/assets/video/home_banner_video_vert-mobile.mp4",
+    "source_bytes": 856501,
+    "bytes": 32494
+  },
+  {
+    "file": "dist/assets/video/social.mp4",
+    "source_bytes": 988569,
+    "bytes": 648620
+  },
+  {
+    "file": "dist/assets/video/social-mobile.mp4",
+    "source_bytes": 988569,
+    "bytes": 194683
+  },
+  {
+    "file": "dist/assets/video/coaching.mp4",
+    "source_bytes": 4105613,
+    "bytes": 1129404
+  },
+  {
+    "file": "dist/assets/video/coaching-mobile.mp4",
+    "source_bytes": 4105613,
+    "bytes": 329766
+  },
+  {
+    "file": "dist/assets/video/latin.mp4",
+    "source_bytes": 3413675,
+    "bytes": 1651185
+  },
+  {
+    "file": "dist/assets/video/latin-mobile.mp4",
+    "source_bytes": 3413675,
+    "bytes": 496464
+  },
+  {
+    "file": "dist/assets/video/studio-film.mp4",
+    "source_bytes": 5191979,
+    "bytes": 3120137
+  },
+  {
+    "file": "dist/assets/video/studio-film-mobile.mp4",
+    "source_bytes": 5191979,
+    "bytes": 1566337
+  }
+]

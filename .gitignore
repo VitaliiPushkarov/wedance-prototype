@@ -1,0 +1,7 @@
+.DS_Store
+previews/
+# Keep camera originals local; only lightweight delivery copies belong in Git.
+dist/assets/*.mp4
+dist/assets/poster_preload_video_*.png
+node_modules/
+__pycache__/
