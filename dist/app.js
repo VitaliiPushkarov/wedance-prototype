@@ -4,6 +4,36 @@ const $ = (selector, context = document) => context.querySelector(selector);
 const $$ = (selector, context = document) => [...context.querySelectorAll(selector)];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+// Reveal the copy once the first video frame is presented. Keep a poster fallback
+// for blocked autoplay, unavailable media, and data-saving connections.
+const introHero = $('.hero-split');
+if (introHero && !reducedMotion.matches) {
+  const video = $('.ambient-video', introHero);
+  introHero.classList.add('intro-pending');
+  let started = false;
+  let frameRequested = false;
+  let fallbackTimer;
+  const revealIntro = () => {
+    if (started) return;
+    started = true;
+    clearTimeout(fallbackTimer);
+    introHero.classList.add('intro-ready');
+  };
+  const onVideoReady = () => {
+    if (frameRequested || started) return;
+    frameRequested = true;
+    if ('requestVideoFrameCallback' in video) video.requestVideoFrameCallback(revealIntro);
+    else requestAnimationFrame(() => requestAnimationFrame(revealIntro));
+  };
+  fallbackTimer = setTimeout(revealIntro, 4500);
+  video.addEventListener('loadeddata', onVideoReady, {once:true});
+  video.addEventListener('playing', onVideoReady, {once:true});
+  video.addEventListener('error', revealIntro, {once:true});
+  if (video.readyState >= 2) onVideoReady();
+  if (navigator.connection?.saveData) requestAnimationFrame(revealIntro);
+  reducedMotion.addEventListener('change', event => { if (event.matches) revealIntro(); });
+}
+
 // Mobile navigation stays usable without taking over the whole page.
 const menuToggle = $('.menu-toggle');
 const mobileNav = $('#mobile-nav');
@@ -26,7 +56,7 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (!mobileNav.hidden && !event.target.closest('.site-header')) closeMenu();
 });
-window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
+window.matchMedia('(min-width: 1181px)').addEventListener('change', event => {
   if (event.matches) closeMenu();
 });
 
@@ -241,7 +271,7 @@ function playInline(video) {
   video.muted = true;
   return video.play().catch(() => {});
 }
-const mosaic = $('.hero-mosaic');
+const heroPreview = $('.hero-mosaic, .hero-split');
 const ambientVideos = $$('.ambient-video');
 let heroVisible = false;
 let heroPaused = reducedMotion.matches || !!navigator.connection?.saveData;
@@ -276,56 +306,34 @@ function syncHero() {
     toggle.firstElementChild.textContent = heroPaused ? '▷' : 'Ⅱ';
   }
 }
-if (mosaic) {
-  new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; syncHero(); }, {threshold:0.05}).observe(mosaic);
-  $('[data-toggle-motion]').addEventListener('click', () => { heroPaused = !heroPaused; syncHero(); });
+if (heroPreview) {
+  new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; syncHero(); }, {threshold:0.05}).observe(heroPreview);
+  $('[data-toggle-motion]')?.addEventListener('click', () => { heroPaused = !heroPaused; syncHero(); });
 }
 const cards = $$('.program-card');
-let selectedCard = null;
-let activeCard = null;
 const visibleCards = new Set();
-let userPausedCard = null;
 function syncCards() {
-  const first = cards[0];
-  const target = !document.hidden && !document.querySelector('dialog[open]')
-    ? (selectedCard && visibleCards.has(selectedCard) ? selectedCard : (!reducedMotion.matches && !navigator.connection?.saveData && visibleCards.has(first) ? first : null)) : null;
-  activeCard = target === userPausedCard ? null : target;
+  const autoplay = !reducedMotion.matches && !navigator.connection?.saveData;
+  const previewsAllowed = !document.hidden && !document.querySelector('dialog[open]');
   cards.forEach(card => {
     const video = $('.program-video', card);
-    const button = $('.program-video-toggle', card);
-    const play = card === activeCard;
-    card.classList.toggle('is-playing', play);
-    button.dataset.playing = String(play);
-    button.setAttribute('aria-label', `${play ? 'Pause' : 'Play'} ${$('h3',card).textContent} video`);
+    const play = previewsAllowed && visibleCards.has(card) && autoplay;
     if (play) playInline(video); else video.pause();
   });
 }
 const cardObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) visibleCards.add(entry.target);
-    else {
-      visibleCards.delete(entry.target);
-      if (selectedCard === entry.target) selectedCard = null;
-      if (userPausedCard === entry.target) userPausedCard = null;
-    }
+    else visibleCards.delete(entry.target);
   });
   syncCards();
 }, {threshold:0.25});
 cards.forEach(card => {
-  const button = document.createElement('button');
-  button.type = 'button'; button.className = 'program-video-toggle';
-  button.innerHTML = '<svg aria-hidden="true"><use href="#play"/></svg>';
-  card.append(button);
-  const select = () => { selectedCard = card; userPausedCard = null; syncCards(); };
-  card.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') select(); });
-  card.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { selectedCard = null; syncCards(); } });
-  card.addEventListener('focusin', event => { if (event.target !== button) select(); });
-  card.addEventListener('focusout', event => { if (!card.contains(event.relatedTarget)) { selectedCard = null; syncCards(); } });
-  button.addEventListener('click', () => {
-    if (activeCard === card) { userPausedCard = card; selectedCard = null; }
-    else { selectedCard = card; userPausedCard = null; }
-    syncCards();
-  });
+  const video = $('.program-video', card);
+  const updatePlayback = () => card.classList.toggle('is-playing', !video.paused);
+  video.addEventListener('play', updatePlayback);
+  video.addEventListener('pause', updatePlayback);
+  updatePlayback();
   cardObserver.observe(card);
 });
 document.addEventListener('visibilitychange', () => { syncHero(); syncCards(); });
