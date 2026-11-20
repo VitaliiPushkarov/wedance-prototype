@@ -4541,8 +4541,8 @@ body .desktop-nav {
   white-space: nowrap;
 }
 body .header-cta {
-  min-height: 42px;
-  padding: 10px 20px;
+  min-height: 32px;
+  padding: 6px 14px;
   white-space: nowrap;
 }
 .mobile-contact {
@@ -4834,7 +4834,6 @@ h6 {
   font-family: var(--heading);
 }
 
-
 /* A quiet cue to explore the programs below the hero. */
 .hero-split .hero-explore {
   position: absolute;
@@ -4867,8 +4866,13 @@ h6 {
   transform: none;
 }
 @keyframes hero-explore-drift {
-  0%, 100% { transform: translateY(-2px); }
-  50% { transform: translateY(4px); }
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
 }
 @media (max-width: 900px) {
   .hero-split .split-copy {
@@ -4888,5 +4892,41 @@ h6 {
 @media (prefers-reduced-motion: reduce) {
   .hero-split .hero-explore::after {
     transition: none;
+  }
+}
+
+/* Desktop header: centered navigation between the brand and contact actions. */
+@media (min-width: 1181px) {
+  body .nav-shell {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(20px, 2vw, 32px);
+  }
+  body .desktop-nav {
+    position: relative;
+    justify-content: center;
+    min-width: 0;
+    margin: 0;
+    padding-inline: clamp(16px, 2vw, 32px);
+  }
+  .desktop-nav::before,
+  .desktop-nav::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1px;
+    height: 32px;
+    background: #ffffff26;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .desktop-nav::before {
+    left: 0;
+  }
+  .desktop-nav::after {
+    right: 0;
+  }
+  .header-actions {
+    justify-self: end;
   }
 }
