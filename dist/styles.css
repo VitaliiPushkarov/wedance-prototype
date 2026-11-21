@@ -4722,7 +4722,8 @@ body .split-copy .split-signoff {
   }
   body .split-copy .hero-description {
     font-size: 18px;
-    margin-top: 24px;
+    line-height: 1.4;
+    margin-top: 14px;
   }
   body .split-copy .split-signoff {
     font-size: 16px;
@@ -4876,11 +4877,14 @@ h6 {
 }
 @media (max-width: 900px) {
   .hero-split .split-copy {
-    padding-bottom: 100px;
+    padding-bottom: 68px;
   }
   .hero-split .hero-explore {
-    right: 24px;
-    bottom: 24px;
+    left: 50%;
+    right: auto;
+    bottom: 20px;
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
 }
 @media (prefers-reduced-motion: reduce) {

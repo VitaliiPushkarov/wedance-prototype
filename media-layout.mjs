@@ -1,5 +1,5 @@
 // Apply the studio's new media without touching any hero section or manual HTML layout.
-const photo = name => `assets/photos/${name}.webp`;
+const photo = name => `assets/photos/${name}.${name === 'group-floor' ? 'jpg' : 'webp'}`;
 const setImage = (tag, src, alt) => tag.replace(/src="[^"]*"/, `src="${src}"`).replace(/alt="[^"]*"/, `alt="${alt}"`);
 function gallery(items) {
  return `<section class="section studio-gallery" aria-label="Studio moments"><div class="container studio-gallery-grid">${items.map(([name,alt])=>`<figure><img src="${photo(name)}" alt="${alt}" loading="lazy" width="1440" height="960"></figure>`).join('')}</div></section>`;
