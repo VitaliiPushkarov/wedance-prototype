@@ -14,6 +14,7 @@ export function applyStudioMedia(html, slug) {
  content=content.replace(/<img\b[^>]*data-story-image="([0-2])"[^>]*>/g,(tag,i)=>setImage(tag,photo(storyImages[i][0]),storyImages[i][1]));
  content=content.replace(/(<section class="community-banner"[^>]*>)(\s*<img\b[^>]*>)/g,(_,start,img)=>start+setImage(img,photo(about?'shared-floor':'group-floor'),about?'Ballroom dancers practicing together':'A full studio floor at a We Dance group session'));
  content=content.replace(/<article class="program-card[^\"]*">[\s\S]*?<\/article>/g,card=>{
+  if(slug==='index') return card; // The current home template owns its chosen promo videos and posters.
   if(card.includes('href="adults.html"')) return card.replace(/data-src="[^"]*"/,'data-src="assets/video/line-dance-preview.mp4"').replace(/data-src-mobile="[^"]*"/,'data-src-mobile="assets/video/line-dance-preview-mobile.mp4"').replace(/poster="[^"]*"/,'poster="assets/posters/line-dance.webp"');
   if(card.includes('href="kids.html"')) return card.replace(/poster="[^"]*"/,`poster="${photo('dance-practice')}"`);
   if(card.includes('href="competitive.html"')) return card.replace(/poster="[^"]*"/,`poster="${photo('ballroom-demonstration')}"`);

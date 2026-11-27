@@ -8,3 +8,5 @@ __pycache__/
 # Keep new camera JPEGs local; publish the optimized WebP copies.
 dist/assets/DSC*.jpg
 dist/assets/_DSC*.jpg
+# Event camera originals stay local; the curated delivery gallery is tracked.
+dist/assets/photos/adults&events/
