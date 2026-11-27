@@ -4934,3 +4934,194 @@ h6 {
     justify-self: end;
   }
 }
+
+/* Coach profiles: clear credentials, readable achievements, and complete mobile photos. */
+body .coach-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+body .coach-photo,
+body .full-profiles .coach-photo {
+  width: 100%;
+  aspect-ratio: auto;
+  height: auto;
+}
+body .coach-photo img,
+body .full-profiles .coach-photo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transform: none;
+}
+body .coach-info {
+  width: 100%;
+  padding: 22px 12px 14px;
+}
+body .coach-info h3 {
+  font-size: clamp(24px, 2.1vw, 32px);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+body .coach-info .coach-qualification {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.coach-career {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.coach-career summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+.coach-career ul {
+  display: grid;
+  gap: 10px;
+  padding-left: 20px;
+  margin: 16px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.coach-career li::marker { color: var(--gold-deep); }
+body .coach-career p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 14px;
+}
+body .coach-career .coach-motto { color: var(--gold-deep); }
+.adults-gallery .section-heading { align-items: end; }
+.gallery-controls { display: flex; gap: 10px; }
+.gallery-prev { transform: rotate(180deg); }
+.adults-gallery-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 16px) / 2);
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) transparent;
+  padding-bottom: 14px;
+}
+.adults-gallery-track figure {
+  margin: 0;
+  scroll-snap-align: start;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e8e6dd;
+}
+.adults-gallery-track img { width: 100%; height: auto; }
+@media (max-width: 900px) {
+  body .coach-photo,
+  body .full-profiles .coach-photo {
+    aspect-ratio: auto;
+    height: auto;
+  }
+  body .coach-photo img,
+  body .full-profiles .coach-photo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  body .section { padding-block: 28px; }
+  body .section-heading { margin-bottom: 22px; gap: 16px; }
+  body .coach-grid { gap: 18px; }
+  body .coach-card { padding: 10px; }
+  body .coach-info,
+  body .full-profiles .coach-info { padding: 16px 8px 10px; }
+  body .coach-info .eyebrow { margin-bottom: 10px; }
+  body .coach-info h3 { font-size: 26px; margin-bottom: 12px; }
+  body .coach-info > p:not(.eyebrow) { line-height: 1.55; }
+  .coach-career { margin-top: 14px; padding-top: 12px; }
+  body .coach-info .text-link { margin-top: 14px; }
+  body .format-grid, body .journey-layout, body .booking-layout,
+  body .faq-layout, body .reviews-layout { gap: 22px; }
+  body .page-intro { padding-top: 22px; padding-bottom: 24px; }
+  .adults-gallery .section-heading { flex-direction: row; align-items: end; }
+  .adults-gallery-track { grid-auto-columns: 96%; gap: 12px; }
+  .adults-gallery-track figure { border-radius: 16px; }
+  .gallery-controls { gap: 6px; flex-shrink: 0; }
+  .gallery-controls .circle-button { width: 36px; height: 36px; }
+}
+
+.coach-card:hover .coach-photo img {
+  transform: none;
+}
+
+
+/* Shared text rows keep the two horizontal profiles aligned. */
+@media (min-width: 901px) {
+  body .coach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0;
+  }
+  body .coach-card,
+  body .full-profiles .coach-card {
+    display: grid;
+    grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
+    grid-template-rows: subgrid;
+    grid-row: span 6;
+    column-gap: 22px;
+    row-gap: 0;
+    align-items: start;
+    padding: 12px;
+  }
+  body .coach-photo,
+  body .full-profiles .coach-photo {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    position: relative;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    align-self: start;
+    background: transparent;
+  }
+  body .coach-photo img,
+  body .full-profiles .coach-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  body .coach-info,
+  body .full-profiles .coach-info {
+    display: contents;
+  }
+  .coach-info > * {
+    grid-column: 2;
+    min-width: 0;
+    margin-right: 8px;
+  }
+  body .coach-info > .eyebrow { grid-row: 1; margin-top: 12px; }
+  body .coach-info > h3 { grid-row: 2; }
+  body .coach-info > .coach-qualification { grid-row: 3; }
+  body .coach-info > p:not(.eyebrow):not(.coach-qualification) { grid-row: 4; }
+  body .coach-info > .coach-career { grid-row: 5; }
+  body .coach-info > .text-link {
+    grid-row: 6;
+    justify-self: start;
+    margin-bottom: 12px;
+  }
+  body .coach-info h3,
+  body .full-profiles .coach-info h3 {
+    font-size: clamp(23px, 1.8vw, 28px);
+    text-wrap: pretty;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .adults-gallery-track { grid-auto-columns: 70%; }
+}
